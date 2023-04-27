@@ -1,0 +1,14 @@
+Dans cette version de départ du TP4, il y a quelques différences à noter. 
+Ces différences n'ont AUCUN impact sur les fonctionnalités à implémenter dans le TP4.
+
+♦ Il n'y a pas de notion de galerie « privée » ou « publique ». 
+La page des galeries publiques affiche toutes les galeries des autres et l'autre page affiche nos propres galeries.
+
+♦ On ne peut pas partager sa galerie avec un autre propriétaire. (Ce n'est pas nécessaire dans le TP4)
+Pour cette raison, les galeries et les utilisateurs ont une relation One-To-Many. (Un utilisateur <-> Plusieurs galeries)
+
+♦ Le seed contient seulement un utilisateur et une galerie.
+Dans le TP4, il y a juste une image de couverture et une image ordinaire à ajouter dans le seed. Ça peut être fait sur la galerie présente dans le seed.
+
+♦ Sur l'appli ASP.NET Core, il n'y a pas de service, juste un contrôleur.
+Il n'est pas nécessaire d'utiliser un service dans le TP4, tout peut être laissé dans un (ou des) contrôleur.

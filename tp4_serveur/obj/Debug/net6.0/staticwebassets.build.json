@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "MVphk2VXAghJL7v6k6u6aqB9OT56w7kjlc8Rni14OtY=",
+  "Source": "tp3_serveur",
+  "BasePath": "_content/tp3_serveur",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
