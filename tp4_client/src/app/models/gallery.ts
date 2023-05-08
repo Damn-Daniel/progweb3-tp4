@@ -1,7 +1,10 @@
-export class Gallery{
+import { Picture } from "./picture";
+
+
+export class Gallery {
     constructor(
-        public id : number,
-        public name : string,
-        public image :
-    ){}
+        public id: number,
+        public name: string,
+        public pictures: Picture[],
+    ) { }
 }

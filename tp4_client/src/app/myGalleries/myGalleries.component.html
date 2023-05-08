@@ -11,32 +11,33 @@
 
     <div class="col-1 galleryList">
       <!-- Photos de couverture de galeries -->
-     <div class="galleryThumbnail" *ngFor="let g of gallery.myGalleries" (click)="selectGallery(g)">
-      <div>{{g.name}}</div>
-      <img src="/assets/images/galleryThumbnail.png" alt="{{g.name}}">
-     </div>
+      <div class="galleryThumbnail" *ngFor="let g of gallery.myGalleries" (click)="selectGallery(g)">
+        <div>{{g.name}}</div>
+        <img src="/assets/images/galleryThumbnail.png" alt="{{g.name}}">
+      </div>
 
     </div>
-  
+
     <div class="col-4 pictureList">
-      
+
       <div class="options newGallery">
         <h3>Nouvelle galerie : </h3>
         <input type="text" name="newGalleryName" placeholder="Nom de la galerie" [(ngModel)]="name">
 
         <!-- Input pour l'image de couverture -->
-        <input type="file" #myPictureViewChild name="newGalleryCoverPicture" accept="images/*" name="newGalleryCoverPicture">
+        <input type="file" #myPictureViewChild name="newGalleryCoverPicture" accept="images/*">
 
-        <button mat-raised-button (click)="newGallery()">Créer la galerie	<mat-icon>add_to_queue</mat-icon></button>
+        <button mat-raised-button (click)="newGallery()">Créer la galerie <mat-icon>add_to_queue</mat-icon></button>
       </div>
-      <div *ngIf="selectedGallery != null">
-      <hr>
+
+      <div class="modifierGallery" *ngIf="selectedGallery != null">
+        <hr>
         <!-- Options de la galerie sélectionnée -->
-        <h3>Modifier la galerie sélectionnée : </h3>
+        <h3>Modifier la galerie sélectionnée : {{selectedGallery.name}}</h3>
         <div class="options">
           <!-- Changer la couverture -->
           <div class="option">
-            <input type="file" name="coverPicture"><button mat-raised-button>Changer la couverture <mat-icon>photo_library</mat-icon></button>
+            <input type="file" name="coverPicture"><button (click)="newPicture()" mat-raised-button>Changer la couverture <mat-icon>photo_library</mat-icon></button>
           </div>
 
           <!-- Supprimer la galerie -->
@@ -46,8 +47,32 @@
         </div>
 
         <hr>
+
+        <h3>Ajouter une photo à cette gallerie</h3>
+        <div class="option">
+          <input type="file" #pictureAdd name="pictureAdd" accept="images/*">
+          <button mat-raised-button (click)="newPicture()">Ajouter la photo <mat-icon>add_to_queue</mat-icon></button>
+        </div>
+
+        <hr>
         <!-- Photos de la galerie sélectionnée -->
-        <h2>Photos de la galerie sélectionnée <mat-icon>photo_camera</mat-icon></h2>
+        <div *ngIf="selectedPicture==null">
+          <h2>Photos de la galerie sélectionnée <mat-icon>photo_camera</mat-icon></h2>
+          <div *ngIf="selectedGallery.pictures!=null">
+            <div class="grid" #masongrid>
+              <div #masongriditems class="grid-item" *ngFor="let p of selectedGallery.pictures">
+                <img alt="picture" (click)="selectPicture(p)" [src]="'https://localhost:7217/api/Pictures/GetFile/sm/'+p.id">
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div *ngIf="selectedPicture!=null">
+          <div class="close" (click)="deletepic(selectedPicture.id)">❌Efface moi❌</div>
+          <img alt="picture" (click)="unselectPicture()" [src]="'https://localhost:7217/api/Pictures/GetFile/lg/'+selectedPicture.id">
+        </div>
+
+
       </div>
     </div>
 

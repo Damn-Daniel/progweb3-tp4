@@ -55,25 +55,92 @@ namespace tp3_serveur.Controllers
             return user.Galleries;
         }
 
+        #region post gallery
         [HttpPost]
-        public async Task<ActionResult<Gallery>> PostGallery(Gallery gallery)
+        [DisableRequestSizeLimit]
+        public async Task<ActionResult<Gallery>> PostGallery()
         {
+            #region créé picture
+
+
+            var picture = new Picture();
+            IFormCollection formCollection = await Request.ReadFormAsync();
+            IFormFile? file = formCollection.Files.GetFile("monImage");
+            if (file!=null)
+            {
+                try
+                {
+                    Image image = Image.Load(file.OpenReadStream());
+                    picture.FileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    picture.MimeType = file.ContentType;
+
+                    image.Save(Directory.GetCurrentDirectory() + "/images/lg/" + picture.FileName);
+                    image.Mutate(i =>
+                        i.Resize(new ResizeOptions()
+                        {
+                            Mode = ResizeMode.Min,
+                            Size = new Size() { Width = 320 }
+                        })
+                    );
+                    image.Save(Directory.GetCurrentDirectory() + "/images/sm/" + picture.FileName);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            else
+            {
+                picture = null;
+            }
+            
+                
+            #endregion
+
+            #region identifie user
             User? user = await _context.Users.FindAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (user == null)
             {
                 return NotFound();
             }
+            #endregion
 
-            // Lien entre user et gallery
-            user.Galleries.Add(gallery);
-            gallery.User = user;
+            #region create gallery gal with user and picture
 
-            // Ajout dans la BD
-            _context.Gallery.Add(gallery);
+            //Obtient le nom de la gallerie
+            string? galleriename = Request.Form["gallery"];
+            if (galleriename == null)
+            {
+                return BadRequest(new { Message = "Aucun nom fourni pour la gallery" });
+            }
+
+            Gallery gal = new Gallery();
+            gal.Name = galleriename;
+            gal.Id = 0;
+            gal.User = user;
+            if (picture!=null)
+            {
+                gal.Pictures = new List<Picture>() { picture};
+            }
+            
+
+            #endregion
+
+            if (picture!=null)
+            {
+                picture.Gallerie = gal;
+                _context.Picture.Add(picture);
+            }
+            
+            user.Galleries.Add(gal);
+            _context.Gallery.Add(gal);
+            
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("PostGallery", new { id = gallery.Id }, gallery);
+            return CreatedAtAction("PostGallery", new { id = gal.Id }, gal);
         }
+        #endregion
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGallery(int id)
@@ -90,6 +157,27 @@ namespace tp3_serveur.Controllers
             {
                 return Unauthorized();
             }
+            //Supprimer les photos de la gallerie
+            #region supprime photo
+            if (_context.Picture != null)
+            {
+                var picture = gallery.Pictures.ToList();
+                if (picture!=null)
+                {
+                    foreach (var item in picture)
+                    {
+                        if (item.MimeType != null && item.FileName != null)
+                        {
+                            System.IO.File.Delete(Directory.GetCurrentDirectory() + "/images/lg/" + item.FileName);
+                            System.IO.File.Delete(Directory.GetCurrentDirectory() + "/images/sm/" + item.FileName);
+                        }
+                        _context.Picture.Remove(item);
+                        gallery.Pictures.Remove(item);
+                    }
+                }
+            }
+            await _context.SaveChangesAsync();
+            #endregion
 
             // Supprimer la galerie
             _context.Gallery.Remove(gallery);

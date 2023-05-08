@@ -36,5 +36,7 @@ namespace tp3_serveur.Data
                 new { Id = 1, Name = "Galerie du seed", IsPublic = true, UserId = "11111111-1111-1111-1111-111111111111" }
             );
         }
+
+        public DbSet<tp3_serveur.Models.Picture>? Picture { get; set; }
     }
 }
