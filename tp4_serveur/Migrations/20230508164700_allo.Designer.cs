@@ -12,8 +12,8 @@ using tp3_serveur.Data;
 namespace tp3_serveur.Migrations
 {
     [DbContext(typeof(tp3_serveurContext))]
-    [Migration("20230427125311_init")]
-    partial class init
+    [Migration("20230508164700_allo")]
+    partial class allo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -187,6 +187,30 @@ namespace tp3_serveur.Migrations
                         });
                 });
 
+            modelBuilder.Entity("tp3_serveur.Models.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GallerieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MimeType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GallerieId");
+
+                    b.ToTable("Picture");
+                });
+
             modelBuilder.Entity("tp3_serveur.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -256,15 +280,15 @@ namespace tp3_serveur.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b61dd792-961c-42a8-85f3-31c698026b45",
+                            ConcurrencyStamp = "9c4177a0-b415-42ed-95c4-e3a219d33c70",
                             Email = "o@o.o",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "O@O.O",
                             NormalizedUserName = "OUI",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF8T7B6YpltDBI5aFNikXsb1AKfu/XaZsjXeLQFh7XbxEp+DhW3xaC9deeqB4kuEEg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHd0G17Fs3efQTQKWiAuCCfUfFOLLx3z+GyXj/CCXKofcY58POghgOKFNyBfy0klig==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "791d9fd8-239d-4e61-958f-48106599983b",
+                            SecurityStamp = "5d70dd51-89de-43a3-b15d-3b9964a2f3a9",
                             TwoFactorEnabled = false,
                             UserName = "oui"
                         });
@@ -328,6 +352,22 @@ namespace tp3_serveur.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("tp3_serveur.Models.Picture", b =>
+                {
+                    b.HasOne("tp3_serveur.Models.Gallery", "Gallerie")
+                        .WithMany("Pictures")
+                        .HasForeignKey("GallerieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Gallerie");
+                });
+
+            modelBuilder.Entity("tp3_serveur.Models.Gallery", b =>
+                {
+                    b.Navigation("Pictures");
                 });
 
             modelBuilder.Entity("tp3_serveur.Models.User", b =>

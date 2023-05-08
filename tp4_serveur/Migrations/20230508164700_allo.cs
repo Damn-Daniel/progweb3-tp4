@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace tp3_serveur.Migrations
 {
-    public partial class init : Migration
+    public partial class allo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -173,10 +173,31 @@ namespace tp3_serveur.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Picture",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MimeType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GallerieId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Picture", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Picture_Gallery_GallerieId",
+                        column: x => x.GallerieId,
+                        principalTable: "Gallery",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "b61dd792-961c-42a8-85f3-31c698026b45", "o@o.o", false, false, null, "O@O.O", "OUI", "AQAAAAEAACcQAAAAEF8T7B6YpltDBI5aFNikXsb1AKfu/XaZsjXeLQFh7XbxEp+DhW3xaC9deeqB4kuEEg==", null, false, "791d9fd8-239d-4e61-958f-48106599983b", false, "oui" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "9c4177a0-b415-42ed-95c4-e3a219d33c70", "o@o.o", false, false, null, "O@O.O", "OUI", "AQAAAAEAACcQAAAAEHd0G17Fs3efQTQKWiAuCCfUfFOLLx3z+GyXj/CCXKofcY58POghgOKFNyBfy0klig==", null, false, "5d70dd51-89de-43a3-b15d-3b9964a2f3a9", false, "oui" });
 
             migrationBuilder.InsertData(
                 table: "Gallery",
@@ -226,6 +247,11 @@ namespace tp3_serveur.Migrations
                 name: "IX_Gallery_UserId",
                 table: "Gallery",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Picture_GallerieId",
+                table: "Picture",
+                column: "GallerieId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -246,10 +272,13 @@ namespace tp3_serveur.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Gallery");
+                name: "Picture");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Gallery");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
