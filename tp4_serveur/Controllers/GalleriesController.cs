@@ -73,8 +73,6 @@ namespace tp3_serveur.Controllers
                     Image image = Image.Load(file.OpenReadStream());
                     picture.FileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     picture.MimeType = file.ContentType;
-
-                    image.Save(Directory.GetCurrentDirectory() + "/images/lg/" + picture.FileName);
                     image.Mutate(i =>
                         i.Resize(new ResizeOptions()
                         {
@@ -83,10 +81,13 @@ namespace tp3_serveur.Controllers
                         })
                     );
                     image.Save(Directory.GetCurrentDirectory() + "/images/sm/" + picture.FileName);
+                    if (picture != null)
+                    {
+                        _context.Picture.Add(picture);
+                    }
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
             }
@@ -121,22 +122,39 @@ namespace tp3_serveur.Controllers
             gal.User = user;
             if (picture!=null)
             {
-                gal.Pictures = new List<Picture>() { picture};
+                gal.Pictures = new List<Picture>() { };
+                picture.Gallerie = gal;
             }
             
 
             #endregion
 
-            if (picture!=null)
-            {
-                picture.Gallerie = gal;
-                _context.Picture.Add(picture);
-            }
             
+            
+            
+
+            if (picture != null)
+            {
+                var tests = _context.Picture.Count();
+                if (_context.Picture.CountAsync().Result==1)
+                {
+                    gal.PicCouvertureID = _context.Picture.FirstOrDefaultAsync().Result.Id;
+                }
+                else
+                {
+                    var pici = await _context.Picture.FirstOrDefaultAsync();
+                    var pic = await _context.Picture.OrderBy(z => z.Id).LastOrDefaultAsync();
+                    gal.PicCouvertureID = pic.Id;
+                }
+                
+            }
+
             user.Galleries.Add(gal);
             _context.Gallery.Add(gal);
-            
+
             await _context.SaveChangesAsync();
+            var tettt = _context.Picture.OrderBy(z => z.Id).LastOrDefaultAsync().Result.Id;
+            var test = user.Galleries.ToList();
 
             return CreatedAtAction("PostGallery", new { id = gal.Id }, gal);
         }

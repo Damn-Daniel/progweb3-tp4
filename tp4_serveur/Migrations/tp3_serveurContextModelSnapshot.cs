@@ -167,6 +167,9 @@ namespace tp3_serveur.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PicCouvertureID")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -278,15 +281,15 @@ namespace tp3_serveur.Migrations
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9c4177a0-b415-42ed-95c4-e3a219d33c70",
+                            ConcurrencyStamp = "29e94039-b4da-43bf-b707-4fbf65bf3f5a",
                             Email = "o@o.o",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "O@O.O",
                             NormalizedUserName = "OUI",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHd0G17Fs3efQTQKWiAuCCfUfFOLLx3z+GyXj/CCXKofcY58POghgOKFNyBfy0klig==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBVNoR0589D4uOJOkYIotWMYdddRkXqP5sGGCInIkr9eJrpQGcRBTsybgtMlBoQLug==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5d70dd51-89de-43a3-b15d-3b9964a2f3a9",
+                            SecurityStamp = "d505d686-8844-4fd8-9dba-8335b1ee343e",
                             TwoFactorEnabled = false,
                             UserName = "oui"
                         });

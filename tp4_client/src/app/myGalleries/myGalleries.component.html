@@ -13,7 +13,8 @@
       <!-- Photos de couverture de galeries -->
       <div class="galleryThumbnail" *ngFor="let g of gallery.myGalleries" (click)="selectGallery(g)">
         <div>{{g.name}}</div>
-        <img src="/assets/images/galleryThumbnail.png" alt="{{g.name}}">
+        <img *ngIf="g.picCouvertureID==null" src="/assets/images/galleryThumbnail.png" alt="{{g.name}}">
+        <img *ngIf="g.picCouvertureID!=null" alt="picture" [src]="'https://localhost:7217/api/Pictures/GetFile/sm/'+g.id">
       </div>
 
     </div>

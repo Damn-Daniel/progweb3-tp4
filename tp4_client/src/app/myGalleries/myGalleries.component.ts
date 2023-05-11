@@ -74,27 +74,27 @@ export class MyGalleriesComponent implements OnInit {
     formData.append("monImage", file, file.name);
     await this.gallery.postPicture(this.selectedGallery!.id, formData);
 
-    if(this.selectedGallery!=null){
+    if (this.selectedGallery != null) {
       let idselect = this.selectedGallery.id;
 
       await this.gallery.getMyGalleries();
-      let x = await this.gallery.myGalleries.find(item=>item.id==idselect);
-      if(x!=undefined)    
-      await this.selectGallery(x);
+      let x = await this.gallery.myGalleries.find(item => item.id == idselect);
+      if (x != undefined)
+        await this.selectGallery(x);
     }
-    this.pictureInputAdd.nativeElement.files=[];
+    this.pictureInputAdd.nativeElement.files = [];
   }
 
   async deletepic(id: number) {
     await this.gallery.deletePicture(id);
 
-    if(this.selectedGallery!=null){
+    if (this.selectedGallery != null) {
       let idselect = this.selectedGallery.id;
 
       await this.gallery.getMyGalleries();
-      let x = await this.gallery.myGalleries.find(item=>item.id==idselect);
-      if(x!=undefined)    
-      await this.selectGallery(x);
+      let x = await this.gallery.myGalleries.find(item => item.id == idselect);
+      if (x != undefined)
+        await this.selectGallery(x);
     }
   }
 

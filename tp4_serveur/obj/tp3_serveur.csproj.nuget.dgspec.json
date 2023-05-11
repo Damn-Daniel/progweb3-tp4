@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2030721\\Desktop\\progweb3-tp4\\tp4_serveur\\tp3_serveur.csproj": {}
+    "C:\\Users\\philt\\Documents\\_progweb\\progweb3-tp4\\tp4_serveur\\tp3_serveur.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2030721\\Desktop\\progweb3-tp4\\tp4_serveur\\tp3_serveur.csproj": {
+    "C:\\Users\\philt\\Documents\\_progweb\\progweb3-tp4\\tp4_serveur\\tp3_serveur.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2030721\\Desktop\\progweb3-tp4\\tp4_serveur\\tp3_serveur.csproj",
+        "projectUniqueName": "C:\\Users\\philt\\Documents\\_progweb\\progweb3-tp4\\tp4_serveur\\tp3_serveur.csproj",
         "projectName": "tp3_serveur",
-        "projectPath": "C:\\Users\\2030721\\Desktop\\progweb3-tp4\\tp4_serveur\\tp3_serveur.csproj",
-        "packagesPath": "C:\\Users\\2030721\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2030721\\Desktop\\progweb3-tp4\\tp4_serveur\\obj\\",
+        "projectPath": "C:\\Users\\philt\\Documents\\_progweb\\progweb3-tp4\\tp4_serveur\\tp3_serveur.csproj",
+        "packagesPath": "C:\\Users\\philt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\philt\\Documents\\_progweb\\progweb3-tp4\\tp4_serveur\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\2030721\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\philt\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -93,7 +94,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -105,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.309\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

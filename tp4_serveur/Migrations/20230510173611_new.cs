@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace tp3_serveur.Migrations
 {
-    public partial class allo : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -161,6 +161,7 @@ namespace tp3_serveur.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PicCouvertureID = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -197,12 +198,12 @@ namespace tp3_serveur.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "9c4177a0-b415-42ed-95c4-e3a219d33c70", "o@o.o", false, false, null, "O@O.O", "OUI", "AQAAAAEAACcQAAAAEHd0G17Fs3efQTQKWiAuCCfUfFOLLx3z+GyXj/CCXKofcY58POghgOKFNyBfy0klig==", null, false, "5d70dd51-89de-43a3-b15d-3b9964a2f3a9", false, "oui" });
+                values: new object[] { "11111111-1111-1111-1111-111111111111", 0, "29e94039-b4da-43bf-b707-4fbf65bf3f5a", "o@o.o", false, false, null, "O@O.O", "OUI", "AQAAAAEAACcQAAAAEBVNoR0589D4uOJOkYIotWMYdddRkXqP5sGGCInIkr9eJrpQGcRBTsybgtMlBoQLug==", null, false, "d505d686-8844-4fd8-9dba-8335b1ee343e", false, "oui" });
 
             migrationBuilder.InsertData(
                 table: "Gallery",
-                columns: new[] { "Id", "Name", "UserId" },
-                values: new object[] { 1, "Galerie du seed", "11111111-1111-1111-1111-111111111111" });
+                columns: new[] { "Id", "Name", "PicCouvertureID", "UserId" },
+                values: new object[] { 1, "Galerie du seed", null, "11111111-1111-1111-1111-111111111111" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
